@@ -1,9 +1,10 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// Uncomment to see this error 
+// error_reporting(0);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
 session_start();
 error_reporting(E_ALL);
-// error_reporting(0);
 include('includes/config.php');
 
 // Initialize
@@ -17,6 +18,8 @@ if (isset($_POST['submit2'])) {
 	$todate = $_POST['todate'];
 	$comment = $_POST['comment'];
 	$status = 0;
+
+	// If user is in session i.e when $useremail has a valid email or a session.
 	if ($useremail) {
 		$sql = "INSERT INTO tblbooking (PackageId,UserEmail,FromDate,ToDate,Comment,status) 
 	VALUES(:pid,:useremail,:fromdate,:todate,:comment,:status)";
@@ -33,8 +36,6 @@ if (isset($_POST['submit2'])) {
 		} else {
 			$error = "Something went wrong. Please try again";
 		}
-	} else {
-		$error = "Something went wrong. Please try again";
 	}
 }
 ?>
@@ -153,7 +154,7 @@ if (isset($_POST['submit2'])) {
 										<label class="inputLabel">Comment</label>
 										<input class="special" type="text" name="comment" required="">
 									</li>
-									<?php if ($_SESSION['login']) { ?>
+									<?php if (isset($_SESSION['login'])) { ?>
 										<li class="spe" align="center">
 											<button type="submit" name="submit2" class="btn-primary btn">Book</button>
 										</li>
